@@ -1,0 +1,141 @@
+<%-include('../layouts/header.ejs')-%>
+
+<div class="center-div col-md-12 col-12" id="login">
+    <div class="container w-50 border py-5 col-md-12 col-12">
+        <div class="title pb-5 text-center col-md-12 col-12">
+            <h2 class="font-weight-bold">
+                Login Page
+            </h2>
+            <span>Login Page for existing users</span>
+            <% if(locals.logout){%>
+               <div class="alert text-success text-center w-100 fw-bold">
+                <%=logout %>
+               </div>
+            <%}%>
+        </div>
+        <form action="/login" method="post" id="submit-form">
+           <div class="form-group col-md-12 col-12">
+            <input type="email" class="form-control" placeholder="Email" name="email" id="email-input">
+            <br>
+            <!-- <small class="form-text">Register email address</small> -->
+           </div> 
+           <div class="form-group col-md-12 col-12">
+            <input type="password" class="form-control" name="password" placeholder="Password" id="password-input">
+           </div>
+           <div id="message-error" class="text-danger text-center pt-2 col-md-12 col-12"></div>
+           <div class="text-center col-md-12 col-12">
+             <button type="submit" class="btn btn-success submit-button rounded mt-4 text-center" id="submit-form">Log in</button>
+             <div class="text-start fs-6 fw-bold">
+                 <a href="/admin" class="register-text">Admin Login</a>
+             </div>
+            </div>
+            <div class="text-end">
+                <a href="/register" class="register-text">New to Site?Register here</a>
+            </div>
+        </form>
+        <div class="text-center"> 
+
+            <% 
+    
+            if(typeof message !=='undefined'){
+    
+                %>
+                <p class="text-danger fw-bold"><%=message %></p>
+                <%
+            }
+            %>
+        </div>
+    </div>
+</div>
+<%-include('../layouts/footer.ejs')-%>
+
+<!-- form validation -->
+<script> 
+
+
+    const form=document.getElementById('submit-form');
+    const emailId=document.getElementById('email-input');
+    const password=document.getElementById('password-input')
+    
+    
+    
+    form.addEventListener('submit',e =>{
+    
+        e.preventDefault();
+        validateInput();
+    });
+      
+    const setError= (element , message)=>{
+    
+        const inputControl =element.parentElement;
+        // const errorDisplay = inputControl.querySelector('.error');
+        // errorDisplay.innerText=message;
+        
+        element.placeholder = message;
+        password.style.border="3px solid red";
+        emailId.style.border="3px solid red";
+        inputControl.classList.add('error');
+        inputControl.classList.remove('success');
+        
+    }
+    
+    const setSuccess=element=>{
+    
+        const inputControl=element.parentElement;
+        // const errorDisplay= inputControl.querySelector('.error');
+        // errorDisplay.innerText='';
+        element.placeholder = '';
+        inputControl.classList.add('success');
+        inputControl.classList.remove('error');
+    };
+    
+    // const isValidPassword=password=>{
+    
+    //     const rename=/^[a-zA-Z1-10]/;
+    //     return rename.test(String(password));
+    // }
+    
+    // const isValidEmail=emailId=>{
+    
+    //     const re=/^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$/;
+    //     return re.test(String(emailId).toLowerCase());
+    // }
+    
+    const validateInput = ()=>{
+    
+        const passwordValue=password.value.trim();
+        const emailIdValue=emailId.value.trim();
+    
+        if(passwordValue===''){
+    
+            setError(password,'Password is required');
+        
+        }else{
+            
+            setSuccess(password);
+        }
+    
+        if(emailIdValue===''){
+    
+            setError(emailId,'Email is required');
+  
+        }else {
+            
+            setSuccess(emailId);
+        }
+        
+    
+    
+        //FOR SUBMISSION:
+    
+        const inputs = [password, emailId];
+      if (inputs.every(input => input.parentElement.classList.contains('success'))) {
+        form.submit();
+        //alert('Login Successfull');
+       
+            
+      }
+       
+    }
+
+    </script>

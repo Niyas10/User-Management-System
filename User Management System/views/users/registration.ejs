@@ -1,0 +1,41 @@
+<%- include('../layouts/header.ejs') -%>
+
+<div class="center-div text-center py-5 col-md-12 col-12">
+    
+    <div class="container w-50 pt-5 col-md-12 col-12 border rounded" >
+        <h1 class="fs-3 text-white">User Registration</h1>
+        <form action="/register" method="post" id="submit-form">
+            <div class="center-div py-4">
+                <input type="text" class="rounded input-fields" name="name" placeholder="Enter Name" id="name-input" required>
+                <br><br>
+                <input type="email" class="rounded input-fields" name="email" placeholder="Enter Email" id="email-input" required>
+                <br><br>
+                <input type="" class="rounded input-fields" name="mobno" placeholder="Enter Mobile" id="mobno-input" required>
+                <br><br>
+                <!-- <input type="file" name="image" required>
+                <br><br> -->
+                <input type="password" class="rounded input-fields" name="password" placeholder="Enter password" id="password-input" required>
+                <br><br>
+                <div class="text-danger fw-bold" id="message-error"></div>
+                <button type="submit" class="rounded btn btn-success">Register</button>
+                <br><br>
+                <div class="text-end">
+                    <a href="/login" class="register-text">Already Registered?Login here</a>
+                </div>
+            </div>
+        </form>
+
+        <% 
+
+        if(typeof message !=='undefined'){
+
+            %>
+            <p class="text-success fw-bold"><%=message %></p>
+            <%
+        }
+        %>
+    </div>
+    
+</div>
+
+<%- include('../layouts/footer.ejs') -%>
